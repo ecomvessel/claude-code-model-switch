@@ -5,6 +5,13 @@ disciplined team: you sit in one model, it **delegates cheap work down automatic
 using the expensive model or shipping to production**, and runs every change through a safe
 **branch → PR → merge** flow with a plain-English safety check.
 
+> **Read this first — what this is and isn't.** These files are a *policy the model follows
+> reliably* — not a technical control. An LLM reading rules can still misfire or be prompted around
+> them. This isn't automation replacing judgment; it's automation that never gets to skip the
+> judgment step — and the hard enforcement underneath it is **GitHub branch protection + CI**
+> ([SETUP.md](./SETUP.md) Step 5). Run both layers: the policy makes the agent fast and disciplined;
+> branch protection makes the discipline unskippable.
+
 **→ [SETUP.md](./SETUP.md) for install steps.** Templates live in [`templates/`](./templates).
 
 ---
@@ -48,17 +55,21 @@ FAST LANE  (marketing/staging):  smaller, quicker, lower stakes
 **Merge-Safety Agent** — no git-speak reaches you:
 ```
 A subagent runs the merge checks → 🟢 safe / 🟡 needs you / 🔴 stop
-   🟢 production: one-word "say go"     🟢 low-stakes: auto-merge, report after
+   🟢 production: plain-English summary READ FROM THE ACTUAL DIFF + changed-file list
+                  → you reply "go" (the agent can never merge on its own)
+   🟢 low-stakes: auto-merge + report after — ONLY if CI or a local build/test
+                  actually ran and passed; no automated check = no auto-merge
 ```
-You answer one question: **"ship it or not?"**
+You answer one question: **"ship it or not?"** — with the evidence attached.
 
 ---
 
 ## Honest limits (read before you rely on it)
 - These files are **conventions the model follows reliably — not hard enforcement.** The real
   backstop is **GitHub branch protection + CI** ([SETUP.md](./SETUP.md) Step 5). Add it on production repos.
-- The riskiest line is auto-merging *low-stakes* repos on 🟢 with no human. Production always needs
-  an explicit go.
+- Auto-merge exists only on low-stakes repos AND only behind a passed automated check (CI or local
+  build/test). No check = no auto-merge. Production always needs an explicit human `go`, given
+  against a diff-derived summary and file list — not the model's unverified opinion.
 - Multi-tier routing only helps if your Claude plan has more than one model. With one model it still
   enforces the safe flow; it just won't switch.
 

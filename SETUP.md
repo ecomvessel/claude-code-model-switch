@@ -60,6 +60,10 @@ The files above are conventions. Make them a hard wall on production repos:
 
 Now the agent's flow AND the platform both enforce "no direct-to-main, tests must pass."
 
+Note: the fast-lane auto-merge in these rules only fires when an automated check (CI or a local
+build/test) actually passed — so until you add CI to a repo, the agent will ask instead of
+auto-merging. That's intentional: speed comes from automated checks, not from skipping them.
+
 ## Customize
 Everything is prose — edit the rules to fit how you work. The two ideas that matter most:
 1. **Down is silent, up asks** (only two interruptions: use the expensive model? ship to prod?).

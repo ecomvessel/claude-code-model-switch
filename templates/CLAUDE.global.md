@@ -70,11 +70,16 @@ Whenever a PR merge comes up, do NOT dump a technical report on the human. Inste
    unrelated files? deploy path understood? rollback = simple revert?) and returns a verdict:
    🟢 safe / 🟡 needs-a-human-call / 🔴 do-not-merge.
 2. **Act by repo tier:**
-   - **Fast-lane / low-stakes:** on 🟢, merge and report after in one plain sentence.
+   - **Fast-lane / low-stakes:** on 🟢, merge and report after in one plain sentence — but ONLY if
+     an objective automated check actually ran and passed (CI on the PR, or at minimum the repo's
+     local build/test command executed by the agent). A 🟢 with no automated check behind it is a
+     self-assessment, not a verification — in that case do NOT auto-merge; post the one-sentence
+     summary and ask. ("Low-stakes" = marketing/staging/no customer data, ever.)
    - **Production / customer-data:** on 🟢, the agent posts one plain-English sentence describing
-     what the PR does and asks the human to confirm by replying `go`. The agent merges ONLY after
-     the human replies `go` — it must NEVER issue the merge on its own. (The word "go" comes from
-     the human, not the agent.)
+     what the PR does — derived from reading the ACTUAL DIFF, never from the PR title/description —
+     plus the exact list of changed files, and asks the human to confirm by replying `go`. The agent
+     merges ONLY after the human replies `go` — it must NEVER issue the merge on its own. (The word
+     "go" comes from the human, not the agent.) The full diff is available on request.
    - On 🟡: STOP, explain in plain business terms WHY it matters, wait.
    - On 🔴: do not merge; fix first, then re-run the safety agent.
 3. **Translate to business language.** The human answers one question: "ship it or not?"
