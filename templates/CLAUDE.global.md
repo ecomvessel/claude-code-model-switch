@@ -87,6 +87,22 @@ to any remote/prod DB, changing env vars, or triggering production deploys. Each
 one-word confirmation, even with auto-accept on. (Fast-lane 🟢 merges may auto-proceed per the
 Merge-Safety policy above.)
 
+# Model Fallback (applies to EVERY session)
+
+Always name the SPECIFIC version when referring to a tier (e.g. "Opus 4.8", not just "Opus") —
+model names change over time and an unversioned reference silently goes stale. Fill in your current
+versions here and update this line whenever you upgrade a tier:
+`<cheap-reader-vX> / <builder-vX> / <seat-vX> / <top-tier-vX>`.
+
+If the model this policy calls for is unavailable (outage, deprecated, rate-limited):
+1. Fall back exactly one tier down (top-tier → seat → builder → cheap-reader) and explicitly flag
+   that the work is running WITHOUT its normal tier — do not silently proceed as if nothing changed.
+2. For anything gated by "escalate up, always ask first": if the top-tier model is unavailable, STOP
+   and tell the human — do not auto-substitute a weaker model for a security/migration decision. Ask
+   whether to proceed on the fallback tier or wait.
+3. For routine delegate-down work (builder/cheap-reader unavailable): fall back to the seat model
+   and keep going — no need to ask, just note it happened.
+
 # Honest limits (know this)
 These files are CONVENTIONS the model follows reliably — not hard enforcement. The real backstop is
 GitHub branch protection + CI. Add those under the production repos as the enforcement layer.
