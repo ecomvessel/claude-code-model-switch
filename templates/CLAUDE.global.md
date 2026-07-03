@@ -62,6 +62,27 @@ a PR merges into the target branch. Never `git clean` (it deletes untracked loca
 List your production repos here with verified path, remote, and target branch. Example:
 - **<REPO NAME>** — `~/Projects/<repo>`, remote `<org>/<repo>`, target `<main | production>`.
 
+# Definition of Done (EVERY build clears this before it's called "done")
+
+"It compiles" is not done. Before any builder/subagent declares work complete, it must self-verify:
+- Build + typecheck + lint pass (the repo's real commands).
+- Tests pass; add/adjust tests for the changed behavior.
+- Touches the DB? Run the actual query/SQL to confirm the data is what's expected — don't assume.
+- Touches an API route / cron / webhook? Exercise it and confirm it responds / runs.
+- Changes the UI? Check it as a user would (drive the real UI, e.g. Playwright) AND confirm the data
+  shown actually matches the DB / source of truth — the #1 silent bug.
+- Report what was tested and the result. "Should work" ≠ done. "Ran it, here's the output" = done.
+
+# Independent Verify (non-trivial changes, before the merge gate)
+
+After the builder self-verifies, hand the change to an INDEPENDENT reviewer that did NOT write it —
+a fresh subagent (or an external model/tool if you have one) — with an adversarial prompt: "find what's
+broken, wrong, or missing." Fresh context catches what the author's misses.
+- Pass findings back, fix, re-check. Loop up to 3× (usually 1–2) until it comes back clean.
+- Only then does it enter the Merge-Safety gate.
+Independence comes from the FRESH CONTEXT, not a different vendor — so a subagent is enough and it's
+automatic. Paste into an external tool manually only if you want an extra opinion.
+
 # Merge-Safety Agent — TIERED policy (applies to EVERY session)
 
 Whenever a PR merge comes up, do NOT dump a technical report on the human. Instead:

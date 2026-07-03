@@ -47,6 +47,13 @@ Everything cheaper than that just runs.
 ```
 Never for routine coding. ~20% of work, tops.
 
+### 3.5 Nothing is "done" until it's proven
+Before any build is called done, it self-verifies against a **Definition of Done** (build/lint/tests
+pass, DB queried to confirm data, APIs/crons exercised, UI checked as a user *and* matched against the
+DB). Then a **fresh independent subagent** — one that didn't write the code — adversarially tries to
+break it, and fixes loop until it comes back clean. The independence comes from the fresh context, so
+it's automatic (no second vendor required).
+
 ### 4. Safety rails on every change
 ```
 PROPER-FLOW (production repos):  branch → PR → merge → auto-deploy → verify
