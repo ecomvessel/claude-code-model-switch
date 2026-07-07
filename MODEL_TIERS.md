@@ -50,3 +50,10 @@ This is the "backup" — the agent already knows how to keep going without the n
 
 The rule in one line: **degrade gracefully, flag it every time, and never let a fallback quietly make
 a security or production call the missing top-tier model was supposed to make.**
+
+## If you do not have Fable access
+
+Nothing in this pack requires Fable specifically. Use the best model you can actually select as your
+**top-tier** role. If Fable is unavailable, paid-only, API-only for your account, or later retired,
+map top-tier to Opus, Sonnet, or whatever your strongest available model is. The safety flow still
+works; you just lose the extra capability of that missing tier.

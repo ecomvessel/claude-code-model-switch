@@ -21,7 +21,8 @@ Do NOT edit `main` directly; `git push` of a branch is not "live" — merge to `
 6. Do NOT touch unrelated untracked/modified files. Never `git clean`.
 
 ## Model lane (which model does what in THIS repo)
-Default to **Sonnet 5** for features; UI → Sonnet 5. **Escalate to Fable 5 for:** the pricing /
+Default to **Sonnet 5** for features; UI → Sonnet 5. **Escalate to the strongest available top-tier
+model (Fable 5 if you have access, otherwise Opus 4.8 or your current best model) for:** the pricing /
 proration data-model design, any change to the Stripe webhook or payment flow, security review before
 an auth or billing change ships, and any DB migration on the customer database. Ask before any
 top-tier or production action.

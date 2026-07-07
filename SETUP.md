@@ -11,9 +11,33 @@ branch → PR → merge flow.
 > conventions, not enforcement. The real enforcement layer is GitHub branch protection + CI (Step 5).
 
 ## Fast path
-`./install.sh` automates Steps 1 and 3 below (safely — it never overwrites an existing
-`~/.claude/CLAUDE.md`; if you have one, it installs alongside and prints the line to add). Prefer
-doing it by hand? Follow the steps. Either way you still fill in placeholders and add enforcement (Step 5).
+If you just want the global rules installed:
+```bash
+curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-flow/main/quick-install.sh | bash
+```
+
+Security-conscious install: download, inspect, then run:
+```bash
+curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-flow/main/quick-install.sh -o quick-install.sh
+less quick-install.sh
+bash quick-install.sh
+```
+
+If you are already inside a production repo and also want a per-repo `CLAUDE.md` template dropped
+there:
+```bash
+curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-flow/main/quick-install.sh | bash -s -- --repo
+```
+
+To pin a fork, branch, or release tag after downloading the script:
+```bash
+CCF_REPO=ecomvessel/claude-code-flow CCF_REF=main bash quick-install.sh
+```
+
+The quick installer downloads this repo to a temp directory and runs `./install.sh`, which automates
+Steps 1 and 3 below (safely — it never overwrites an existing `~/.claude/CLAUDE.md`; if you have one,
+it installs alongside and prints the line to add). Prefer doing it by hand? Follow the steps. Either
+way you still fill in placeholders and add enforcement (Step 5).
 
 ## Prerequisites
 - Claude Code installed and working (`claude` runs in your terminal).

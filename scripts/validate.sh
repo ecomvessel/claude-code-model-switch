@@ -16,6 +16,7 @@ required=(
   LICENSE
   MODEL_TIERS.md
   install.sh
+  quick-install.sh
   templates/CLAUDE.global.md
   templates/CLAUDE.repo.md
 )
@@ -57,6 +58,13 @@ if bash -n install.sh; then
   echo "  ok  install.sh parses"
 else
   echo "  install.sh has a syntax error"; fail=1
+fi
+
+echo "==> quick-install.sh is valid bash"
+if bash -n quick-install.sh; then
+  echo "  ok  quick-install.sh parses"
+else
+  echo "  quick-install.sh has a syntax error"; fail=1
 fi
 
 if [ "$fail" -eq 0 ]; then

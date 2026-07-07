@@ -12,10 +12,31 @@ plain-English safety check.
 > the habit, branch protection is the wall.
 
 ## Quickstart
+One-command install:
+```bash
+curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-flow/main/quick-install.sh | bash
+```
+
+Review first, then run:
+```bash
+curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-flow/main/quick-install.sh -o quick-install.sh
+less quick-install.sh
+bash quick-install.sh
+```
+
+Or clone it first:
 ```bash
 git clone https://github.com/ecomvessel/claude-code-flow   # or your fork
 cd claude-code-flow
 ./install.sh            # safe: never overwrites an existing ~/.claude/CLAUDE.md
+```
+To also drop a per-repo `CLAUDE.md` template into the current directory:
+```bash
+curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-flow/main/quick-install.sh | bash -s -- --repo
+```
+To pin a fork, branch, or release tag:
+```bash
+CCF_REPO=ecomvessel/claude-code-flow CCF_REF=main bash quick-install.sh
 ```
 Then open the installed file and replace the `<PLACEHOLDER>`s (your model tiers + production repos).
 - **New to this?** See filled-in [`examples/`](./examples) before writing your own.
