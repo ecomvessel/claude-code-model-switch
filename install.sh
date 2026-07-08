@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # install.sh — set up Claude Code Flow WITHOUT clobbering your existing config.
 #
-#   ./install.sh              # safe default: writes a separate file, never overwrites CLAUDE.md
-#   ./install.sh --repo       # also drop a per-repo template into the current directory
+#   ./install.sh                      # blank template: edit <PLACEHOLDER>s after install
+#   ./install.sh --preset fable-5     # pre-filled config, works as installed (see presets/)
+#   ./install.sh --repo               # also drop a per-repo template into the current directory
 #
 # It will NEVER overwrite an existing ~/.claude/CLAUDE.md. If you already have one, it installs the
 # global rules to a separate file and prints one line for you to add. You stay in control of merging.
@@ -15,10 +16,39 @@ GLOBAL_SRC="templates/CLAUDE.global.md"
 SIDE_FILE="$CLAUDE_DIR/claude-code-flow.md"
 MAIN_FILE="$CLAUDE_DIR/CLAUDE.md"
 
+list_presets() {
+  find presets -mindepth 1 -maxdepth 1 -type d -exec basename {} \; 2>/dev/null | sort
+}
+
 want_repo=0
-[ "${1:-}" = "--repo" ] && want_repo=1
+preset=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --repo) want_repo=1 ;;
+    --preset)
+      preset="${2:-}"
+      if [ -z "$preset" ]; then
+        echo "--preset needs a name. Available presets:" >&2
+        list_presets >&2
+        exit 1
+      fi
+      shift ;;
+    *) echo "Unknown option: $1 (supported: --preset <name>, --repo)" >&2; exit 1 ;;
+  esac
+  shift
+done
+
+if [ -n "$preset" ]; then
+  if [ ! -f "presets/$preset/CLAUDE.md" ]; then
+    echo "Unknown preset: '$preset'. Available presets:" >&2
+    list_presets >&2
+    exit 1
+  fi
+  GLOBAL_SRC="presets/$preset/CLAUDE.md"
+fi
 
 echo "Claude Code Flow — installer"
+[ -n "$preset" ] && echo "Using preset: $preset (pre-filled — works as installed)"
 echo
 
 mkdir -p "$CLAUDE_DIR"
@@ -55,7 +85,15 @@ if [ "$want_repo" -eq 1 ]; then
 fi
 
 echo
-echo "Next: open the file(s) above and replace every <PLACEHOLDER>:"
-echo "  • your seat / builder / cheap-reader / top-tier model versions"
-echo "  • your list of production repos (path, remote, target branch)"
-echo "See MODEL_TIERS.md for how to fill the model roles, and SETUP.md for the rest."
+if [ -n "$preset" ]; then
+  echo "Done — the preset works as installed. Two optional upgrades:"
+  echo "  • list your production repos under 'Graduated repos' in the installed file"
+  echo "  • add branch protection + CI on production repos (SETUP.md Step 5) — the real enforcement"
+else
+  echo "Next: open the file(s) above and replace every <PLACEHOLDER>:"
+  echo "  • your seat / builder / cheap-reader / top-tier model versions"
+  echo "  • your list of production repos (path, remote, target branch)"
+  echo "Tip: prefer zero editing? Re-run with --preset <name> (see presets/README.md):"
+  list_presets | sed 's/^/  • /'
+fi
+echo "See MODEL_TIERS.md for how model roles work, and SETUP.md for the rest."

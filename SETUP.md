@@ -11,7 +11,13 @@ branch → PR → merge flow.
 > conventions, not enforcement. The real enforcement layer is GitHub branch protection + CI (Step 5).
 
 ## Fast path
-If you just want the global rules installed:
+Fastest: install a **preset** — model roles pre-filled for your plan, no editing needed
+(see [`presets/`](./presets/README.md) to pick: `fable-5`, `opus-4-8`, `sonnet-5`):
+```bash
+curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-flow/main/quick-install.sh | bash -s -- --preset fable-5
+```
+
+Or just the blank global rules (you fill in the `<PLACEHOLDER>`s after):
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-flow/main/quick-install.sh | bash
 ```
@@ -37,7 +43,8 @@ CCF_REPO=ecomvessel/claude-code-flow CCF_REF=main bash quick-install.sh
 The quick installer downloads this repo to a temp directory and runs `./install.sh`, which automates
 Steps 1 and 3 below (safely — it never overwrites an existing `~/.claude/CLAUDE.md`; if you have one,
 it installs alongside and prints the line to add). Prefer doing it by hand? Follow the steps. Either
-way you still fill in placeholders and add enforcement (Step 5).
+way you still add enforcement (Step 5); the blank template additionally needs its placeholders filled
+(presets don't).
 
 ## Prerequisites
 - Claude Code installed and working (`claude` runs in your terminal).

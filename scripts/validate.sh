@@ -19,6 +19,10 @@ required=(
   quick-install.sh
   templates/CLAUDE.global.md
   templates/CLAUDE.repo.md
+  presets/README.md
+  presets/fable-5/CLAUDE.md
+  presets/opus-4-8/CLAUDE.md
+  presets/sonnet-5/CLAUDE.md
 )
 for f in "${required[@]}"; do
   if [ -e "$f" ]; then
@@ -27,6 +31,14 @@ for f in "${required[@]}"; do
     echo "  MISSING  $f"; fail=1
   fi
 done
+
+echo "==> Presets are fully filled in (no leftover <PLACEHOLDER>s)"
+# <TARGET_BRANCH> in shell examples is illustrative, not a config placeholder — allow it.
+if grep -rn "PLACEHOLDER\|<YOUR" presets/*/CLAUDE.md 2>/dev/null; then
+  echo "  a preset still contains a placeholder — presets must work as installed"; fail=1
+else
+  echo "  ok  presets contain no placeholders"
+fi
 
 echo "==> Relative Markdown links resolve"
 while IFS= read -r -d '' md; do

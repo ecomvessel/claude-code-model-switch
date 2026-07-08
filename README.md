@@ -12,12 +12,26 @@ plain-English safety check.
 > the habit, branch protection is the wall.
 
 ## Quickstart
-One-command install:
+
+**Fastest: pick a preset** — model roles pre-filled for your plan, zero editing, works as installed:
+```bash
+curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-flow/main/quick-install.sh | bash -s -- --preset fable-5
+```
+| Preset | Pick this if… |
+|--------|---------------|
+| `fable-5` | you have **Fable 5** access (e.g. Max) — Haiku 4.5 reads / Sonnet 5 builds / Opus 4.8 seat / Fable 5 top tier |
+| `opus-4-8` | no Fable — **Opus 4.8** is your best model |
+| `sonnet-5` | you sit in **Sonnet 5** (e.g. Pro), Opus 4.8 for the hard stuff |
+
+What each preset routes where, and when to switch: [`presets/`](./presets/README.md).
+
+**Or install the blank template** and fill in your own model names:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-flow/main/quick-install.sh | bash
 ```
+Then open the installed file and replace the `<PLACEHOLDER>`s (your model tiers + production repos).
 
-Review first, then run:
+Review first, then run (works with `--preset` too):
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-flow/main/quick-install.sh -o quick-install.sh
 less quick-install.sh
@@ -38,7 +52,6 @@ To pin a fork, branch, or release tag:
 ```bash
 CCF_REPO=ecomvessel/claude-code-flow CCF_REF=main bash quick-install.sh
 ```
-Then open the installed file and replace the `<PLACEHOLDER>`s (your model tiers + production repos).
 - **New to this?** See filled-in [`examples/`](./examples) before writing your own.
 - **Setting model roles?** See [`MODEL_TIERS.md`](./MODEL_TIERS.md).
 - **Full walkthrough + the enforcement step?** See [`SETUP.md`](./SETUP.md).
