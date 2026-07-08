@@ -9,13 +9,20 @@ Each preset is a **ready-to-use global `CLAUDE.md`** with the model roles alread
 | [`opus-4-8`](./opus-4-8) | No Fable — **Opus 4.8** is your best | Opus 4.8 | Sonnet 5 | Haiku 4.5 | Opus 4.8 |
 | [`sonnet-5`](./sonnet-5) | You sit in **Sonnet 5** (e.g. Pro) | Sonnet 5 | Sonnet 5 | Haiku 4.5 | Opus 4.8 (if available) |
 
-Install one directly:
+One-command install per preset — copy the line for yours:
 
 ```bash
+# fable-5 — you have Fable 5 access:
 curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-model-switch/main/quick-install.sh | bash -s -- --preset fable-5
+
+# opus-4-8 — no Fable, Opus 4.8 is your best:
+curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-model-switch/main/quick-install.sh | bash -s -- --preset opus-4-8
+
+# sonnet-5 — you sit in Sonnet 5:
+curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-model-switch/main/quick-install.sh | bash -s -- --preset sonnet-5
 ```
 
-Or from a clone: `./install.sh --preset fable-5` (add `--repo` to also drop a per-repo template).
+Or from a clone: `./install.sh --preset <name>` (add `--repo` to also drop a per-repo template).
 
 **Every preset keeps the same token economics:** cheap model reads, mid model builds, your seat
 plans/reviews, and the expensive tier only runs when you approve it. The names change per preset;

@@ -13,17 +13,25 @@ plain-English safety check.
 
 ## Quickstart
 
-**Fastest: pick a preset** — model roles pre-filled for your plan, zero editing, works as installed:
+**Fastest: pick your preset** — model roles pre-filled for your plan, zero editing, works as
+installed. Run the ONE line that matches the models your Claude plan gives you:
+
+You have **Fable 5** access (e.g. Max) — Haiku 4.5 reads / Sonnet 5 builds / Opus 4.8 seat / Fable 5 top tier:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-model-switch/main/quick-install.sh | bash -s -- --preset fable-5
 ```
-| Preset | Pick this if… |
-|--------|---------------|
-| `fable-5` | you have **Fable 5** access (e.g. Max) — Haiku 4.5 reads / Sonnet 5 builds / Opus 4.8 seat / Fable 5 top tier |
-| `opus-4-8` | no Fable — **Opus 4.8** is your best model |
-| `sonnet-5` | you sit in **Sonnet 5** (e.g. Pro), Opus 4.8 for the hard stuff |
 
-What each preset routes where, and when to switch: [`presets/`](./presets/README.md).
+No Fable — **Opus 4.8** is your best model:
+```bash
+curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-model-switch/main/quick-install.sh | bash -s -- --preset opus-4-8
+```
+
+You sit in **Sonnet 5** (e.g. Pro), Opus 4.8 for the hard stuff:
+```bash
+curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-model-switch/main/quick-install.sh | bash -s -- --preset sonnet-5
+```
+
+Not sure which? What each preset routes where, and when to switch: [`presets/`](./presets/README.md).
 
 **Or install the blank template** and fill in your own model names:
 ```bash

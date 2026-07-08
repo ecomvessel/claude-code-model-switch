@@ -11,10 +11,17 @@ branch → PR → merge flow.
 > conventions, not enforcement. The real enforcement layer is GitHub branch protection + CI (Step 5).
 
 ## Fast path
-Fastest: install a **preset** — model roles pre-filled for your plan, no editing needed
-(see [`presets/`](./presets/README.md) to pick: `fable-5`, `opus-4-8`, `sonnet-5`):
+Fastest: install a **preset** — model roles pre-filled for your plan, no editing needed. Run the
+one line that matches your plan ([`presets/`](./presets/README.md) explains each):
 ```bash
+# fable-5 — you have Fable 5 access:
 curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-model-switch/main/quick-install.sh | bash -s -- --preset fable-5
+
+# opus-4-8 — no Fable, Opus 4.8 is your best:
+curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-model-switch/main/quick-install.sh | bash -s -- --preset opus-4-8
+
+# sonnet-5 — you sit in Sonnet 5:
+curl -fsSL https://raw.githubusercontent.com/ecomvessel/claude-code-model-switch/main/quick-install.sh | bash -s -- --preset sonnet-5
 ```
 
 Or just the blank global rules (you fill in the `<PLACEHOLDER>`s after):
